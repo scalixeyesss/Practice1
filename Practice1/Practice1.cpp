@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <limits>       
 
 void freeMatrix(int** matrix, int rows) {
@@ -9,61 +9,61 @@ void freeMatrix(int** matrix, int rows) {
 }
 
 int main() {
-    setlocale(LC_ALL, "ru");
+    setlocale(LC_ALL, "Russn");
     int n, m;
     int** matrix = nullptr;
     int** transposed = nullptr;
 
     try {
-        // 1. ввод размеров
-        std::cout << "Введите количество строк и столбцов: ";
+        // 1. РІРІРѕРґ СЂР°Р·РјРµСЂРѕРІ
+        std::cout << "Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє Рё СЃС‚РѕР»Р±С†РѕРІ: ";
         if (!(std::cin >> n >> m)) {
-            throw std::invalid_argument("Ошибка ввода размеров");
+            throw std::invalid_argument("РћС€РёР±РєР° РІРІРѕРґР° СЂР°Р·РјРµСЂРѕРІ");
         }
 
-        // проверка на invalid_argument
+        // РїСЂРѕРІРµСЂРєР° РЅР° invalid_argument
         if (n <= 0 || m <= 0) {
-            throw std::invalid_argument("Размеры матрицы должны быть положительными");
+            throw std::invalid_argument("Р Р°Р·РјРµСЂС‹ РјР°С‚СЂРёС†С‹ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹РјРё");
         }
 
 
-        //превышает максимально возможное значение
+        //РїСЂРµРІС‹С€Р°РµС‚ РјР°РєСЃРёРјР°Р»СЊРЅРѕ РІРѕР·РјРѕР¶РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
         size_t max_size = std::numeric_limits<size_t>::max();
         if (static_cast<size_t>(n) > max_size / static_cast<size_t>(m)) {
-            throw std::overflow_error("Размер матрицы слишком велик (переполнение)");
+            throw std::overflow_error("Р Р°Р·РјРµСЂ РјР°С‚СЂРёС†С‹ СЃР»РёС€РєРѕРј РІРµР»РёРє (РїРµСЂРµРїРѕР»РЅРµРЅРёРµ)");
         }
 
-        // 2. выделение памяти под исходную матрицу
+        // 2. РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ РёСЃС…РѕРґРЅСѓСЋ РјР°С‚СЂРёС†Сѓ
         matrix = new int* [n];
         for (int i = 0; i < n; ++i) {
             matrix[i] = new int[m];
         }
 
-        // 3. ввод элементов
-        std::cout << "Введите элементы матрицы:" << '\n';
+        // 3. РІРІРѕРґ СЌР»РµРјРµРЅС‚РѕРІ
+        std::cout << "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚С‹ РјР°С‚СЂРёС†С‹:" << '\n';
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 if (!(std::cin >> matrix[i][j])) {
-                    throw std::invalid_argument("Ошибка ввода элементов матрицы");
+                    throw std::invalid_argument("РћС€РёР±РєР° РІРІРѕРґР° СЌР»РµРјРµРЅС‚РѕРІ РјР°С‚СЂРёС†С‹");
                 }
             }
         }
 
-        // 4. выделение памяти под транспонированную матрицу
+        // 4. РІС‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ С‚СЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРЅСѓСЋ РјР°С‚СЂРёС†Сѓ
         transposed = new int* [m];
         for (int i = 0; i < m; ++i) {
             transposed[i] = new int[n];
         }
 
-        // 5. транспонирование
+        // 5. С‚СЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРёРµ
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 transposed[j][i] = matrix[i][j];
             }
         }
 
-        // 6. вывод
-        std::cout << "Транспонированная матрица:" << '\n';
+        // 6. РІС‹РІРѕРґ
+        std::cout << "РўСЂР°РЅСЃРїРѕРЅРёСЂРѕРІР°РЅРЅР°СЏ РјР°С‚СЂРёС†Р°:" << '\n';
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
                 std::cout << transposed[i][j] << " ";
@@ -73,7 +73,7 @@ int main() {
 
     }
     catch (const std::invalid_argument& e) {
-        std::cerr << "Ошибка: " << e.what() << '\n';
+        std::cerr << "РћС€РёР±РєР°: " << e.what() << '\n';
         if (matrix != nullptr) {
             for (int i = 0; i < n; ++i) delete[] matrix[i];
             delete[] matrix;
@@ -85,11 +85,11 @@ int main() {
         return 1;
     }
     catch (const std::overflow_error& e) {
-        std::cerr << "Ошибка: " << e.what() << '\n';
+        std::cerr << "РћС€РёР±РєР°: " << e.what() << '\n';
         return 1;
     }
 
-    // 7. освобождение памяти при успешном завершении
+    // 7. РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё РїСЂРё СѓСЃРїРµС€РЅРѕРј Р·Р°РІРµСЂС€РµРЅРёРё
     freeMatrix(matrix, n);
     freeMatrix(transposed, m);
 
