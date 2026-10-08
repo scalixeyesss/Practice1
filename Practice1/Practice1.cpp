@@ -15,31 +15,31 @@ int main() {
     int** transposed = nullptr;
 
     try {
-        // 1. Ввод размеров
+        // 1. ввод размеров
         std::cout << "Введите количество строк и столбцов: ";
         if (!(std::cin >> n >> m)) {
             throw std::invalid_argument("Ошибка ввода размеров");
         }
 
-        // Проверка на отрицательные размеры (invalid_argument)
+        // проверка на invalid_argument
         if (n <= 0 || m <= 0) {
             throw std::invalid_argument("Размеры матрицы должны быть положительными");
         }
 
-        
+
         //превышает максимально возможное значение
         size_t max_size = std::numeric_limits<size_t>::max();
         if (static_cast<size_t>(n) > max_size / static_cast<size_t>(m)) {
             throw std::overflow_error("Размер матрицы слишком велик (переполнение)");
         }
 
-        // 2. Выделение памяти под исходную матрицу
+        // 2. выделение памяти под исходную матрицу
         matrix = new int* [n];
         for (int i = 0; i < n; ++i) {
             matrix[i] = new int[m];
         }
 
-        // 3. Ввод элементов
+        // 3. ввод элементов
         std::cout << "Введите элементы матрицы:" << '\n';
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
@@ -49,20 +49,20 @@ int main() {
             }
         }
 
-        // 4. Выделение памяти под транспонированную матрицу
+        // 4. выделение памяти под транспонированную матрицу
         transposed = new int* [m];
         for (int i = 0; i < m; ++i) {
             transposed[i] = new int[n];
         }
 
-        // 5. Транспонирование
+        // 5. транспонирование
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 transposed[j][i] = matrix[i][j];
             }
         }
 
-        // 6. Вывод
+        // 6. вывод
         std::cout << "Транспонированная матрица:" << '\n';
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
@@ -73,9 +73,7 @@ int main() {
 
     }
     catch (const std::invalid_argument& e) {
-        // Ошибка ввода или неверные аргументы -> код возврата 1
         std::cerr << "Ошибка: " << e.what() << '\n';
-        // Чистим память перед выходом
         if (matrix != nullptr) {
             for (int i = 0; i < n; ++i) delete[] matrix[i];
             delete[] matrix;
@@ -87,12 +85,11 @@ int main() {
         return 1;
     }
     catch (const std::overflow_error& e) {
-        // Ошибка переполнения -> код возврата 1 (как ошибка ввода)
         std::cerr << "Ошибка: " << e.what() << '\n';
         return 1;
     }
 
-    // 7. Освобождение памяти при успешном завершении
+    // 7. освобождение памяти при успешном завершении
     freeMatrix(matrix, n);
     freeMatrix(transposed, m);
 
